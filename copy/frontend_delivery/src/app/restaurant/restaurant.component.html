@@ -1,0 +1,62 @@
+<div class="search-bar">
+    <mat-form-field appearance="fill">
+        <mat-label>Search Restaurants</mat-label>
+        <input matInput [(ngModel)]="searchTerm" (keyup.enter)="searchRestaurants()">
+        <button mat-icon-button matSuffix (click)="searchRestaurants()">
+            <mat-icon>search</mat-icon>
+        </button>
+    </mat-form-field>
+</div>
+<div class="container">
+    <!-- New Restaurant Form -->
+    <mat-toolbar color="primary">
+      <span>Add New Restaurant</span>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="openAddDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-toolbar>
+  
+    <!-- Restaurants Table and Edit Form -->
+    <div class="container">
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      
+          <!-- Columns Definitions -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="pizzas">
+            <mat-header-cell *matHeaderCellDef> Pizzas </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{getPizzaNames(element.pizzas)}} </mat-cell>
+          </ng-container>
+          
+          
+          <!-- Header and Row Declarations -->
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      
+        </mat-table>
+  
+      <!-- Edit Form -->
+      <div fxFlex="20%" *ngIf="selectedRestaurant">
+        <h2>Edit Restaurant</h2>
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput [(ngModel)]="selectedRestaurant.name" placeholder="Name">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea matInput [(ngModel)]="selectedRestaurant.description" placeholder="Description"></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="updateRestaurant()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+  

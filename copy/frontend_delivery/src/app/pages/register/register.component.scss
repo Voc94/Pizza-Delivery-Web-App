@@ -1,0 +1,18 @@
+.register-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  
+    mat-form-field {
+      width: 100%; // Ensures full width of form fields within the form
+    }
+  }
+  
+  mat-card {
+    margin: auto; // Center the card horizontally
+    max-width: 500px; // Max width for better appearance on wider screens
+    width: 100%; // Use full width on smaller screens
+  }
+  

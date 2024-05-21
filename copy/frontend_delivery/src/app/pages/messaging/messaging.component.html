@@ -1,0 +1,31 @@
+<div class="container">
+  <mat-toolbar color="primary">
+    <span>Restaurant Application Form</span>
+  </mat-toolbar>
+
+  <div class="example-section">
+    <button mat-raised-button color="accent" (click)="connect()" [disabled]="isConnected">
+      Connect
+    </button>
+    <button mat-raised-button color="warn" (click)="disconnect()" [disabled]="!isConnected">
+      Disconnect
+    </button>
+  </div>
+
+  <div class="example-section">
+    <mat-form-field class="example-full-width">
+      <mat-label>Enter your request</mat-label>
+      <input matInput [(ngModel)]="name" placeholder="Request">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="sendMessage()" [disabled]="!isConnected">
+      Send
+    </button>
+  </div>
+
+  <div class="example-section">
+    <h3>Messages:</h3>
+    <mat-list>
+      <mat-list-item *ngFor="let msg of messages">{{ msg }}</mat-list-item>
+    </mat-list>
+  </div>
+</div>

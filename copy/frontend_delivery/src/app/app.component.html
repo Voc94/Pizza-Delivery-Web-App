@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+    <span>My Pizza Delivery App</span>
+    <span style="flex: 1 1 auto;"></span>
+    <ng-container *ngIf="currentUser">
+      <span>{{ currentUser.email }} {{ currentUser.role }}</span>
+      <button mat-button routerLink="/messaging">Message an Admin</button>
+      <button mat-button routerLink="/restaurant">Restaurants</button>
+      <button mat-button (click)="logout()">Logout</button>
+      <button *ngIf="currentUser.role === 'ROLE_ADMIN'" mat-button routerLink="/admin">Admin View</button>
+    </ng-container>
+    <ng-container *ngIf="!currentUser">
+      <button mat-button routerLink="/login">Login</button>
+      <button mat-button routerLink="/register">Register</button>
+    </ng-container>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+  
