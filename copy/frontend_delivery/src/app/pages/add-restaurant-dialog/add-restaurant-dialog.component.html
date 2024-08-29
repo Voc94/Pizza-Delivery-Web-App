@@ -8,6 +8,10 @@
     <mat-label>Description</mat-label>
     <textarea matInput [(ngModel)]="data.description"></textarea>
   </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Manager ID</mat-label>
+    <input matInput type="number" [(ngModel)]="data.manager_id">
+  </mat-form-field>
   <input type="file" (change)="onFileSelected($event)">
 </div>
 <div mat-dialog-actions>

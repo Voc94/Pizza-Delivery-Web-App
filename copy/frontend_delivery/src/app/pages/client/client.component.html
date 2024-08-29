@@ -1,0 +1,24 @@
+<div class="search-bar">
+    <label>
+      <input matInput type="text" [(ngModel)]="searchTerm" (keyup.enter)="searchRestaurants()" required>
+      <ul>
+        <li s>s</li>
+        <li e>e</li>
+        <li a>a</li>
+        <li r>r</li>
+        <li c>c</li>
+        <li h>h</li>
+      </ul>
+    </label>
+  </div>
+  
+  <div class="restaurant-grid">
+    <mat-card *ngFor="let restaurant of dataSource.data" class="restaurant-card" (click)="openRestaurantDialog(restaurant)">
+      <img mat-card-image [src]="restaurant.photo" alt="{{restaurant.name}}" class="restaurant-photo">
+      <mat-card-content>
+        <h2 mat-card-title>{{ restaurant.name }}</h2>
+        <p mat-card-subtitle>{{ restaurant.description }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

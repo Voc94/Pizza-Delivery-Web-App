@@ -1,5 +1,6 @@
 package com.pizzaDeliveryProject.delivery.models.user;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pizzaDeliveryProject.delivery.models.restaurant.Restaurant;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -38,6 +39,7 @@ public class User implements UserDetails {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
+    @JsonBackReference
     private Restaurant restaurant;
 
     @Enumerated(EnumType.STRING)

@@ -2,27 +2,31 @@ package com.pizzaDeliveryProject.delivery.models.restaurant;
 
 import com.pizzaDeliveryProject.delivery.models.user.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Entity
 public class Restaurant {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
+
     @Lob
-    @Basic(fetch = FetchType.LAZY)
-    private byte[] photo;  // Store photo as a byte array
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] photo;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Pizza> pizzaList;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "manager_id")
+
+    @ManyToOne
+    @JoinColumn(name = "manager_id", nullable = false)
     private User manager;
 }

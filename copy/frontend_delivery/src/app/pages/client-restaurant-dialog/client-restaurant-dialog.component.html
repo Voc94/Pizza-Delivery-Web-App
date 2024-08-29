@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>{{ data.name }}</h2>
+<mat-dialog-content>
+  <p>{{ data.description }}</p>
+  <mat-list>
+    <mat-list-item *ngFor="let pizza of data.pizzaList">
+      {{ pizza.name }} - {{ pizza.price | currency }}
+      <button mat-button (click)="placeOrder(pizza)">Order Now</button>
+    </mat-list-item>
+  </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button style="background-color: crimson; color:aliceblue" (click)="onClose()">Close</button>
+</mat-dialog-actions>

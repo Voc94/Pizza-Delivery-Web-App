@@ -1,7 +1,7 @@
 package com.pizzaDeliveryProject.delivery.models.user;
 
 public enum Role {
-    USER,
+    CLIENT,
     ADMIN,
     RESTAURANT_MANAGER,
     STAFF

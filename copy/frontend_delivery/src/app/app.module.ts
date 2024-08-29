@@ -1,10 +1,8 @@
-// src/app/app.module.ts
-
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 // Import Angular Material modules
@@ -19,6 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list'; 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,10 +28,16 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AuthService } from './auth/auth-service.service';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MessagingComponent } from './pages/messaging/messaging.component';
 import { RestaurantsComponent } from './restaurant/restaurant.component';
 import { AddRestaurantDialogComponent } from './pages/add-restaurant-dialog/add-restaurant-dialog.component';
+import { ClientComponent } from './pages/client/client.component';
+import { UserProfileDialogComponent } from './pages/user-profile-dialog/user-profile-dialog.component';
+import { RestaurantDialogComponent } from './pages/client-restaurant-dialog/client-restaurant-dialog.component';
+import { OrdersComponent } from './pages/order/orders.component';
+import { RestaurantManagingComponent } from './pages/restaurant-managing/restaurant-managing.component';
+import { EmployeeSistemComponent } from './pages/employee-sistem/employee-sistem.component';
+import { StaffOrderComponent } from './pages/stafforder/stafforder.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +49,15 @@ import { AddRestaurantDialogComponent } from './pages/add-restaurant-dialog/add-
     AdminComponent,
     MessagingComponent,
     RestaurantsComponent,
-    AddRestaurantDialogComponent
+    AddRestaurantDialogComponent,
+    ClientComponent,
+    UserProfileDialogComponent,
+    RestaurantDialogComponent,
+    OrdersComponent,
+    RestaurantManagingComponent,
+    EmployeeSistemComponent,
+    StaffOrderComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -53,12 +66,12 @@ import { AddRestaurantDialogComponent } from './pages/add-restaurant-dialog/add-
     FormsModule,
     HttpClientModule,
     RouterModule,
+    ReactiveFormsModule,
     
     MatInputModule,
     MatIconModule,
     MatListModule,
     MatToolbarModule,
-    MatInputModule,
     MatButtonModule,
     MatCardModule,
     MatGridListModule,
@@ -66,6 +79,7 @@ import { AddRestaurantDialogComponent } from './pages/add-restaurant-dialog/add-
     MatFormFieldModule,
     MatSnackBarModule,
     MatTableModule,
+    FormsModule,
     MatDialogModule
   ],
   providers: [
@@ -76,6 +90,7 @@ import { AddRestaurantDialogComponent } from './pages/add-restaurant-dialog/add-
       multi: true
     }
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

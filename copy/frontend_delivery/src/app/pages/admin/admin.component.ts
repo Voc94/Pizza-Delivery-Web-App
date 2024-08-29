@@ -18,9 +18,8 @@ export class AdminComponent implements OnInit {
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
-      this.loadUsers();
-      this.fetchUsersCount();
-      
+    this.loadUsers();
+    this.fetchUsersCount();
   }
 
   loadUsers(): void {
@@ -28,10 +27,10 @@ export class AdminComponent implements OnInit {
   }
 
   resetForm(): void {
-    this.selectedUser = { id: 0, username: '', email: '', role: '',password: '' }; // Adjust according to your UserDTO interface
+    this.selectedUser = { id: 0, username: '', email: '', role: '', password: '' }; // Adjust according to your UserDTO interface
   }
+
   fetchUsersCount(): void {
-    // Call the service method to fetch the count
     this.adminService.getUsersCount().pipe(
       catchError(error => {
         console.error('Error fetching users count:', error);
@@ -43,12 +42,13 @@ export class AdminComponent implements OnInit {
       }
     });
   }
+
   onSubmit(): void {
     if (this.selectedUser) {
-      const userOperation = this.selectedUser.id ? 
+      const userOperation = this.selectedUser.id ?
         this.adminService.updateUser(this.selectedUser.id, this.selectedUser) :
         this.adminService.createUser(this.selectedUser);
-      
+
       userOperation.subscribe({
         next: () => {
           this.loadUsers();
@@ -60,6 +60,7 @@ export class AdminComponent implements OnInit {
       });
     }
   }
+
   deleteUser(userId: number): void {
     this.adminService.deleteUser(userId).subscribe({
       next: () => {
@@ -71,5 +72,21 @@ export class AdminComponent implements OnInit {
       }
     });
   }
-  
+
+  exportUsersAsXml(): void {
+    this.adminService.exportUsersAsXml().subscribe({
+      next: (xml) => {
+        const blob = new Blob([xml], { type: 'application/xml' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'users.xml';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: (error) => {
+        console.error('Error exporting users as XML:', error);
+      }
+    });
+  }
 }

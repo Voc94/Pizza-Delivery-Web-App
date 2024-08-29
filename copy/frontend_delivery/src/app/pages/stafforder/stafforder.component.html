@@ -1,0 +1,51 @@
+<div class="container">
+    <h2>Manage Orders</h2>
+    <mat-card *ngIf="orders.length">
+      <mat-table [dataSource]="orders">
+        <!-- Restaurant Name Column -->
+        <ng-container matColumnDef="restaurantName">
+          <mat-header-cell *matHeaderCellDef> Restaurant Name </mat-header-cell>
+          <mat-cell *matCellDef="let order"> {{ order.restaurantName }} </mat-cell>
+        </ng-container>
+  
+        <!-- Pizza Name Column -->
+        <ng-container matColumnDef="pizzaName">
+          <mat-header-cell *matHeaderCellDef> Pizza Name </mat-header-cell>
+          <mat-cell *matCellDef="let order"> {{ order.pizzaName }} </mat-cell>
+        </ng-container>
+  
+        <!-- Status Column -->
+        <ng-container matColumnDef="orderStatus">
+          <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+          <mat-cell *matCellDef="let order"> {{ order.orderStatus }} </mat-cell>
+        </ng-container>
+  
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let order">
+            <button
+              mat-raised-button
+              color="primary"
+              *ngIf="order.orderStatus === 'PLACED'"
+              (click)="updateOrderStatus(order.orderId, 'PREPARING')"
+            >
+              Prepare
+            </button>
+            <button
+              mat-raised-button
+              color="accent"
+              *ngIf="order.orderStatus === 'PREPARING'"
+              (click)="updateOrderStatus(order.orderId, 'FINISHED')"
+            >
+              Finished
+            </button>
+          </mat-cell>
+        </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+    </mat-card>
+  </div>
+  

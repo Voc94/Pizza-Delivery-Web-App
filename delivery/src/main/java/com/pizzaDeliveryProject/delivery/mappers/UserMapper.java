@@ -1,6 +1,5 @@
 package com.pizzaDeliveryProject.delivery.mappers;
 
-import com.pizzaDeliveryProject.delivery.auth.RegisterRequest;
 import com.pizzaDeliveryProject.delivery.dto.UserDTO;
 import com.pizzaDeliveryProject.delivery.models.user.User;
 import com.pizzaDeliveryProject.delivery.models.user.Role;
@@ -27,7 +26,7 @@ public class UserMapper {
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
         user.setRestaurant(dto.getRestaurant());
-        user.setRole(dto.getRole() != null ? Role.valueOf(dto.getRole()) : Role.USER);
+        user.setRole(dto.getRole() != null ? Role.valueOf(dto.getRole()) : Role.CLIENT);
         return user;
     }
 }

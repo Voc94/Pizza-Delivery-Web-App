@@ -15,7 +15,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -31,9 +30,16 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/user/**").hasRole("USER")
-                        .requestMatchers("/api/restaurants/**").hasAnyRole("USER","ADMIN")
+                        .requestMatchers("/api/user/**").hasAnyRole("CLIENT","ADMIN","RESTAURANT_MANAGER","STAFF")
+                        .requestMatchers("/api/restaurants/*/photo").permitAll()
+                        .requestMatchers("/api/restaurants/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/ws/**").permitAll()
+                        .requestMatchers("/api/client/restaurants/*/photo").permitAll()
+                        .requestMatchers("/api/user/profile").permitAll()
+                        .requestMatchers("/api/client/**").hasRole("CLIENT")
+                        .requestMatchers("/api/orders").hasRole("CLIENT")
+                        .requestMatchers("/api/manager/**").hasAnyRole("RESTAURANT_MANAGER","STAFF")
+                        .requestMatchers("/api/manager/restaurant/user").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -46,7 +52,7 @@ public class SecurityConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:4200","127.0.0.0")); // Use patterns if applicable
+        configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:4200", "http://127.0.0.1"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
@@ -54,6 +60,5 @@ public class SecurityConfiguration {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
 
 }

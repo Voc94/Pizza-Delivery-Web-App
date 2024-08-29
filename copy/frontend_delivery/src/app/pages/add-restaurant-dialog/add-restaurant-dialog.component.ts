@@ -8,15 +8,22 @@ import { Restaurant } from '../../models/restaurant.model';
   styleUrls: ['./add-restaurant-dialog.component.scss']
 })
 export class AddRestaurantDialogComponent {
+  selectedFile: File | null = null;
+
   constructor(
     public dialogRef: MatDialogRef<AddRestaurantDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Restaurant) {}
 
-    onFileSelected(event: any): void {
-      const file: File = event.target.files[0];
-      if (file) {
-        this.data.file = file; // Ensure 'file' is added to your Restaurant interface
-      }
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+    if (this.selectedFile) {
+      this.data.file = this.selectedFile;  // Ensure 'file' is added to your Restaurant interface
     }
-    
+  }
+
+  onSubmit(): void {
+    if (this.data) {
+      this.dialogRef.close({ ...this.data, file: this.selectedFile });
+    }
+  }
 }

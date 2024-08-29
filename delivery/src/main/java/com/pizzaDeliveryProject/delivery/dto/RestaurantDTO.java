@@ -15,6 +15,7 @@ public class RestaurantDTO {
     private String name;
     private String description;
     @Lob
-    private byte[] photo;  // Store photo as a byte array
-    private List<PizzaDTO> pizzas;  // Assuming PizzaDTO is already defined elsewhere
+    private byte[] photo;
+    private List<PizzaDTO> pizzaList;
+
 }

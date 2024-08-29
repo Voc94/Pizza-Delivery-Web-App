@@ -5,6 +5,7 @@ export interface Restaurant {
   name: string;
   description: string;
   pizzaList?: Pizza[];
-  photo?: string;  // URL to the photo
-  file?: File;     // For file uploads
+  photo?: string;
+  file?: File;
+  manager_id: number;
 }

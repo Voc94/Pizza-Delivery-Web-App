@@ -24,7 +24,9 @@
           Password must be at least 6 characters
         </mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Log In</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid" style="background-color: #DC143C; color:antiquewhite;">Log In</button>
+      <button mat-button routerLink="/register" style="background-color: #DC143C; color:antiquewhite; margin-left: 10rem;">Register</button>
+
     </form>
   </mat-card-content>
 </mat-card>

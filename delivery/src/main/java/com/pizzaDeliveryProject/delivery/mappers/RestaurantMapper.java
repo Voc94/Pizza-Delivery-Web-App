@@ -14,7 +14,7 @@ public class RestaurantMapper {
         dto.setName(restaurant.getName());
         dto.setDescription(restaurant.getDescription());
         dto.setPhoto(restaurant.getPhoto());  // Assuming photo is a byte array
-        dto.setPizzas(PizzaMapper.pizzasToPizzasDTO(restaurant.getPizzaList()));  // Assuming method to convert list of Pizzas to PizzaDTOs
+        dto.setPizzaList(PizzaMapper.pizzasToPizzasDTO(restaurant.getPizzaList()));  // Assuming method to convert list of Pizzas to PizzaDTOs
         return dto;
     }
 
@@ -27,7 +27,7 @@ public class RestaurantMapper {
         restaurant.setName(dto.getName());
         restaurant.setDescription(dto.getDescription());
         restaurant.setPhoto(dto.getPhoto());  // Assuming photo is a byte array
-        restaurant.setPizzaList(PizzaMapper.pizzaDTOsToPizzas(dto.getPizzas()));  // Convert list of PizzaDTO to list of Pizza
+        restaurant.setPizzaList(PizzaMapper.pizzaDTOsToPizzas(dto.getPizzaList()));  // Convert list of PizzaDTO to list of Pizza
         return restaurant;
     }
 }

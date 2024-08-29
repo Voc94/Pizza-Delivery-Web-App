@@ -38,8 +38,7 @@ public class AuthenticationService {
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setRestaurant(null);
-        user.setRole(Role.USER);
-        // Perform validation
+        user.setRole(Role.CLIENT);
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         if (!violations.isEmpty()) {
             String violationMessages = violations.stream()

@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>Manage Restaurant</h2>
+  <form [formGroup]="restaurantForm" (ngSubmit)="updateRestaurant()">
+    <mat-form-field appearance="fill">
+      <mat-label>Restaurant Name</mat-label>
+      <input matInput id="name" formControlName="name" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput id="description" formControlName="description"></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="restaurantForm.invalid">Update Restaurant</button>
+  </form>
+</div>
+
+<div class="container">
+  <h2>Add Pizza</h2>
+  <form [formGroup]="pizzaForm" (ngSubmit)="addPizza()">
+    <mat-form-field appearance="fill">
+      <mat-label>Pizza Name</mat-label>
+      <input matInput id="name" formControlName="name" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Price</mat-label>
+      <input matInput id="price" formControlName="price" type="number" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="pizzaForm.invalid">Add Pizza</button>
+  </form>
+</div>
+
+<div class="container" *ngIf="restaurant && restaurant.pizzaList?.length">
+  <h2>Pizza List</h2>
+  <mat-list>
+    <mat-list-item *ngFor="let pizza of restaurant.pizzaList">
+      <h4 matLine>{{ pizza.name }}</h4>
+      <p matLine>{{ pizza.price | currency }}</p>
+    </mat-list-item>
+  </mat-list>
+</div>

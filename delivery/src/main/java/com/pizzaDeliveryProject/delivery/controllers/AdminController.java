@@ -1,15 +1,12 @@
 package com.pizzaDeliveryProject.delivery.controllers;
 
-
-import com.pizzaDeliveryProject.delivery.config.JwtService;
 import com.pizzaDeliveryProject.delivery.dto.UserDTO;
 import com.pizzaDeliveryProject.delivery.service.AdminService;
-import io.jsonwebtoken.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,18 +16,17 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
-    private final JwtService jwtService;
 
     @Autowired
-    public AdminController(AdminService adminService, JwtService jwtService) {
+    public AdminController(AdminService adminService) {
         this.adminService = adminService;
-        this.jwtService = jwtService;
     }
 
     @GetMapping("/test")
-    public ResponseEntity<String> sayHello(){
+    public ResponseEntity<String> sayHello() {
         return ResponseEntity.ok("Hello from secured endpoint!");
     }
+
     @PostMapping("/users")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         UserDTO createdUser = adminService.createUser(userDTO);
@@ -49,7 +45,6 @@ public class AdminController {
         return ResponseEntity.ok().build();
     }
 
-
     @GetMapping("/users/{userId}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId) {
         UserDTO userDTO = adminService.getUserById(userId);
@@ -61,17 +56,18 @@ public class AdminController {
         List<UserDTO> users = adminService.getAllUsers();
         return ResponseEntity.ok(users);
     }
-    @GetMapping("/users/count")
-    public ResponseEntity<Long> getUsersCount(){
-        long activeUsersCount = jwtService.getActiveUsersCount();
-        return ResponseEntity.ok(activeUsersCount);
-    }
-    @MessageMapping("/restaurantRequest")
-    @SendToUser("/queue/restaurantRequest")
-    public ResponseEntity<String> handleRestaurantRequest(@Payload Long userId) {
-        // Handle the restaurant request here
 
-        // Send a response back to the user acknowledging the request
-        return ResponseEntity.ok("Restaurant request received successfully.");
+    @GetMapping("/users/xml")
+    public ResponseEntity<String> exportUsersAsXml() {
+        try {
+            String xml = adminService.exportUsersAsXml();
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=users.xml")
+                    .contentType(MediaType.APPLICATION_XML)
+                    .body(xml);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).build();
+        }
     }
 }

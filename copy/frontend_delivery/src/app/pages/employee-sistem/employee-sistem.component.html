@@ -1,0 +1,29 @@
+<div class="container">
+    <h2>Employees</h2>
+    <form [formGroup]="employeeForm" (ngSubmit)="addEmployee()">
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput id="username" formControlName="username" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput id="email" formControlName="email" type="email" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput id="password" formControlName="password" type="password" />
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="employeeForm.invalid">Add Employee</button>
+    </form>
+  
+    <div *ngIf="employees.length">
+      <h2>Employee List</h2>
+      <mat-list>
+        <mat-list-item *ngFor="let employee of employees">
+          <h4 matLine>{{ employee.username }}</h4>
+          <p matLine>{{ employee.email }}</p>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+  

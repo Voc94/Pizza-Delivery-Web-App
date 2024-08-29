@@ -9,6 +9,11 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { MessagingComponent } from './pages/messaging/messaging.component';
 import { RestaurantsComponent } from './restaurant/restaurant.component';
+import { ClientComponent } from './pages/client/client.component';
+import { OrdersComponent } from './pages/order/orders.component';
+import { RestaurantManagingComponent } from './pages/restaurant-managing/restaurant-managing.component';
+import { EmployeeSistemComponent } from './pages/employee-sistem/employee-sistem.component';
+import { StaffOrderComponent } from './pages/stafforder/stafforder.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,9 +21,15 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'messaging', component: MessagingComponent },
-  { path: 'restaurant', component: RestaurantsComponent },
+  { path: 'restaurant', component: RestaurantsComponent, canActivate: [RoleGuardService], data: { expectedRole: 'ROLE_ADMIN' } },
   { path: 'admin', component: AdminComponent, canActivate: [RoleGuardService], data: { expectedRole: 'ROLE_ADMIN' } },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  { path: 'client', component: ClientComponent, canActivate: [RoleGuardService], data: { expectedRole: 'ROLE_CLIENT' } },
+  { path: 'manager', component: RestaurantManagingComponent, canActivate: [RoleGuardService], data: { expectedRole: 'ROLE_RESTAURANT_MANAGER' } },
+  { path: 'employee', component: EmployeeSistemComponent, canActivate: [RoleGuardService], data: { expectedRole: 'ROLE_RESTAURANT_MANAGER' } },
+  { path: 'staff-orders', component: StaffOrderComponent, canActivate: [RoleGuardService], data: { expectedRole: 'ROLE_STAFF' } },
+  { path: 'orders', component: OrdersComponent, canActivate: [AuthGuardService] },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' }
 ];
 
 @NgModule({

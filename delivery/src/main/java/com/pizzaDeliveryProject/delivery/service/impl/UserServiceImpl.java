@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private RestaurantRepository restaurantRepository;
-
+    @Override
     public void assignRestaurantToManager(Long userId, Long restaurantId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         if (user.getRole() == Role.RESTAURANT_MANAGER) {
@@ -25,5 +25,9 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new IllegalStateException("Only users with the role RestaurantManager can manage a restaurant.");
         }
+    }
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

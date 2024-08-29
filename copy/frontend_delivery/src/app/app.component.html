@@ -1,17 +1,24 @@
 <mat-toolbar color="primary">
-    <span>My Pizza Delivery App</span>
-    <span style="flex: 1 1 auto;"></span>
-    <ng-container *ngIf="currentUser">
-      <span>{{ currentUser.email }} {{ currentUser.role }}</span>
-      <button mat-button routerLink="/messaging">Message an Admin</button>
-      <button mat-button routerLink="/restaurant">Restaurants</button>
-      <button mat-button (click)="logout()">Logout</button>
-      <button *ngIf="currentUser.role === 'ROLE_ADMIN'" mat-button routerLink="/admin">Admin View</button>
-    </ng-container>
-    <ng-container *ngIf="!currentUser">
-      <button mat-button routerLink="/login">Login</button>
-      <button mat-button routerLink="/register">Register</button>
-    </ng-container>
-  </mat-toolbar>
-  <router-outlet></router-outlet>
-  
+  <button *ngIf="currentUser?.role === 'ROLE_CLIENT'" mat-icon-button routerLink="/client">
+    <i class="fa fa-home"></i>
+  </button>
+  <span>My Pizza Delivery App</span>
+  <span style="flex: 1 1 auto;"></span>
+  <ng-container *ngIf="currentUser">
+    <span>{{ currentUser.email }}</span>
+    <button *ngIf="currentUser.role === 'ROLE_CLIENT'" mat-button routerLink="/orders">Orders</button>
+    <button mat-button routerLink="/messaging">Message an Admin</button>
+    <button *ngIf="currentUser.role === 'ROLE_ADMIN'" mat-button routerLink="/restaurant">Restaurants</button>
+    <button *ngIf="currentUser.role === 'ROLE_RESTAURANT_MANAGER'" mat-button routerLink="/manager">Manage Restaurant</button>
+    <button *ngIf="currentUser.role === 'ROLE_RESTAURANT_MANAGER'" mat-button routerLink="/employee">Employee System</button>
+    <button *ngIf="currentUser.role === 'ROLE_STAFF'" mat-button routerLink="/staff-orders">Staff System</button>
+    <button mat-button (click)="showUserProfile()">Profile</button>
+    <button mat-button (click)="logout()">Logout</button>
+    <button *ngIf="currentUser.role === 'ROLE_ADMIN'" mat-button routerLink="/admin">Admin View</button>
+  </ng-container>
+  <ng-container *ngIf="!currentUser">
+    <button mat-button routerLink="/login">Login</button>
+    <button mat-button routerLink="/register">Register</button>
+  </ng-container>
+</mat-toolbar>
+<router-outlet></router-outlet>
